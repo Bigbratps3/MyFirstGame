@@ -3,32 +3,32 @@ import time
 import random
 pygame.font.init()
 
-Width, Height = 1000, 700
+Width, Height = 500, 700
 pygame.init()
 WIN = pygame.display.set_mode((Width, Height))
-pygame.display.set_caption("DODGE")
+pygame.display.set_caption("Spadające gwiazdy")
 
-sprite = pygame.transform.scale(pygame.image.load("sprite.png"), (Width, Height))
+sprite = pygame.transform.scale(pygame.image.load("Poziom.png"), (Width, Height))
 
 PLAYER_Width = 40
 PLAYER_Height = 60
-PLAYER_VEL = 10
+PLAYER_VEL = 5
 STAR_Width = 10
 STAR_Height = 20
-STAR_VEL = 3
+STAR_VEL = 10
 
 FONT = pygame.font.SysFont("comicsans", 30)
 
 def draw(player, elapsed_time, stars):
     WIN.blit(sprite, (0, 0))
 
-    time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
+    time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "purple")
     text_width, text_height = FONT.size(f"Time: {round(elapsed_time)}s")
     text_x = (Width - text_width) // 2
     
     WIN.blit(time_text, (text_x, 10))
 
-    pygame.draw.rect(WIN, "red", player)
+    pygame.draw.rect(WIN, "blue", player)
 
     for star in stars:
         pygame.draw.rect(WIN, "white", star)
@@ -52,7 +52,7 @@ def main():
 
     while run:
         
-        star_count += clock.tick(60)
+        star_count += clock.tick(100)
         elapsed_time = time.time() - start_time
 
         if star_count > star_add_increment:
@@ -70,7 +70,7 @@ def main():
                break
             
 
-
+#klucze
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - PLAYER_VEL >= 0:
                 player.x -= PLAYER_VEL
@@ -92,7 +92,7 @@ def main():
 
                 
         if hit:
-            lost_text = FONT.render("YOU LOSE!", 1, "white" )
+            lost_text = FONT.render("YOU LOSE!", 1, "red" )
             WIN.blit(lost_text, (Width/2 - lost_text.get_width()/2, Height/2 - lost_text.get_height()/2))
             pygame.display.update()
             pygame.time.delay(4000)
